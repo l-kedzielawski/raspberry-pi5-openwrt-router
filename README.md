@@ -237,3 +237,8 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **OpenWRT Community**: For excellent documentation and software support.
 - **TP-Link**: For reliable networking hardware (TL-SG105E switch, EAP610 access point).
 - **NETIA**: For ISP services and PPPoE authentication.
+
+ ## **Contact Me**
+ 
+- 📧 **Email:** [l.kedzielawski@gmail.com](mailto:l.kedzielawski@gmail.com)
+- 💼 **LinkedIn:** [linkedin.com/in/lukasz-kedzielawski](https://www.linkedin.com/in/lukasz-kedzielawski/)
