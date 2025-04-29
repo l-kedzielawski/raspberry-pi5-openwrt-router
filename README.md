@@ -45,7 +45,7 @@ Skip overpriced routers. Build your own. Learn real skills. Secure your network.
 
 ---
 
-## 💽 Software Requirements
+## Software Requirements
 
 - **Operating System**: OpenWRT 24.10.0.
 
