@@ -1,0 +1,99 @@
+
+config interface 'loopback'
+	option device 'lo'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+
+config globals 'globals'
+	option ula_prefix 'fd6c:36c1:50d2::/48'
+	option packet_steering '1'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '10'
+	option name 'eth0.10'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '20'
+	option name 'eth0.20'
+
+config device
+	option name 'eth0'
+
+config interface 'wan'
+	option proto 'pppoe'
+	option device 'eth0.10'
+	option username 'ISP credientials '
+	option password 'ISP password'
+	option ipv6 'auto'
+
+config interface 'lan'
+	option proto 'static'
+	option device 'eth0.20'
+	option ipaddr '192.168.2.1'
+	option netmask '255.255.255.0'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '30'
+	option name 'eth0.30'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '40'
+	option name 'eth0.40'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '50'
+	option name 'eth0.50'
+
+config device
+	option type '8021q'
+	option ifname 'eth0'
+	option vid '60'
+	option name 'eth0.60'
+
+config interface 'true_wifi'
+	option proto 'static'
+	option device 'eth0.30'
+	option ipaddr '192.168.30.1'
+	option netmask '255.255.255.0'
+
+config interface 'iot_wifi'
+	option proto 'static'
+	option device 'eth0.40'
+	option ipaddr '192.168.40.1'
+	option netmask '255.255.255.0'
+
+config interface 'guest_wifi'
+	option proto 'static'
+	option device 'eth0.50'
+	option ipaddr '192.168.50.1'
+	option netmask '255.255.255.0'
+	option mtu '1500'
+
+config interface 'nas'
+	option proto 'static'
+	option device 'eth0.60'
+	option ipaddr '192.168.60.1'
+	option netmask '255.255.255.0'
+
+config interface 'wg0'
+	option proto 'wireguard'
+	option private_key 'PRIVATE KEY'
+	option listen_port '51820'
+	list addresses '10.10.10.1/24'
+
+config wireguard_wg0
+	option public_key 'PUBLIC KEY'
+	option description 'ultra_s24'
+	list allowed_ips '10.10.10.2/32'
+

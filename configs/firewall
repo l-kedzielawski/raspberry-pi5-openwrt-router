@@ -1,0 +1,151 @@
+
+config defaults
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option synflood_protect '1'
+
+config zone
+	option name 'lan'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'ACCEPT'
+	list network 'lan'
+
+config zone
+	option name 'wan'
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option masq '1'
+	option mtu_fix '1'
+	list network 'wan'
+
+config forwarding
+	option src 'lan'
+	option dest 'wan'
+
+config zone
+	option name 'trust_wifi'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	list network 'true_wifi'
+
+config zone
+	option name 'iot'
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option masq '1'
+	list network 'iot_wifi'
+
+config forwarding
+	option src 'iot'
+	option dest 'wan'
+
+config forwarding
+	option src 'trust_wifi'
+	option dest 'wan'
+
+config rule
+	option name 'Allow IOT DHCP'
+	list proto 'udp'
+	option src 'iot'
+	option dest_port '67-68'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow IoT DNS'
+	option src 'iot'
+	option dest_port '53'
+	option target 'ACCEPT'
+
+config forwarding
+	option src 'trust_wifi'
+	option dest 'lan'
+
+config zone
+	option name 'guest_wifi'
+	option input 'REJECT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option masq '1'
+	option mtu_fix '1'
+	list network 'guest_wifi'
+
+config include 'pbr'
+	option fw4_compatible '1'
+	option type 'script'
+	option path '/usr/share/pbr/firewall.include'
+
+config zone
+	option name 'wg'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	option masq '1'
+	option mtu_fix '1'
+	list network 'wg0'
+
+config forwarding
+	option src 'wg'
+	option dest 'lan'
+
+config rule
+	option name 'Allow-WireGuard-Inbound'
+	option src 'wan'
+	option dest_port '51820'
+	option proto 'udp'
+	option target 'ACCEPT'
+
+config forwarding
+	option src 'wg'
+	option dest 'wan'
+
+config forwarding
+	option src 'guest_wifi'
+	option dest 'wan'
+
+config zone
+	option name 'nas'
+	option input 'ACCEPT'
+	option output 'ACCEPT'
+	option forward 'REJECT'
+	list network 'nas'
+
+config rule
+	option dest 'lan'
+	option name 'Allow Router to AP'
+	list dest_ip '192.168.2.254'
+	option target 'ACCEPT'
+
+config forwarding
+	option src 'lan'
+	option dest 'nas'
+
+config rule
+	option name 'Allow-Guest-DHCP'
+	option src 'guest_wifi'
+	option dest_port '67'
+	option proto 'udp'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-Guest-DNS'
+	option src 'guest_wifi'
+	option dest_port '53'
+	option proto 'udp'
+	option target 'ACCEPT'
+
+config rule
+	option name 'Allow-Guest-openNDS'
+	option src 'guest_wifi'
+	option dest_port '2050 80 443'
+	option proto 'tcp'
+	option target 'ACCEPT'
+
+config include 'opennds'
+	option type 'script'
+	option path '/usr/lib/opennds/restart.sh'
+

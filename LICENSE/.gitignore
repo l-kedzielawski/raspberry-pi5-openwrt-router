@@ -1,0 +1,27 @@
+OpenWRT and System Files
+
+.log .pcap /tmp//mnt/cloud//etc/wireguard/privatekey /etc/wireguard/publickey
+
+Sensitive Configuration Backups
+
+*.bak *.backup *.old
+
+Editor and IDE Files
+
+.vscode/ .idea/ *.swp *.swo *~
+
+OS-Specific Files
+
+.DS_Store Thumbs.db
+
+Build and Runtime Artifacts
+
+*.o *.ko *.gz *.tar
+
+Python and Script Artifacts
+
+pycache/ *.pyc
+
+Miscellaneous
+
+*.tmp *.temp *.cache
